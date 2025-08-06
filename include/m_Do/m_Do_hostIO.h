@@ -13,9 +13,29 @@ class JOREvent;
 class JORServer;
 
 #if VERSION == VERSION_DEMO
-#define HIO(name) l_HIO.##name
+#define HIO_ARG(type, name, value) type name;
+#define HIO_GENERATE_CLASS(class_name, inherits_from, data_name, ...)   \
+    class class_name : public inherits_from {                           \
+    public:                                                             \
+        class_name();                                                   \
+        virtual ~class_name() {                                         \
+        }                                                               \
+        void genMessage(JORMContext*);                                  \
+        ##__VA_ARGS__                                                   \
+    };                                                                  \
+    static class_name data_name;
 #else
-#define HIO(name) L_HIO::##name
+#define HIO_ARG(type, name, value) static const type name = value;
+#define HIO_GENERATE_CLASS(class_name, inherits_from, data_name, ...)  \
+    namespace L_HIO {                                                  \
+    ##__VA_ARGS__                                                      \
+    }
+#endif
+
+#if VERSION == VERSION_DEMO
+#define HIO(name) l_HIO.name
+#else
+#define HIO(name) L_HIO::name
 #endif
 
 class JORMContext {
@@ -84,13 +104,9 @@ public:
     virtual ~mDoHIO_root_c() {}
 
     void update();
-    
-    s8 createChild(const char* name, JORReflexible* hio) {
-        return m_subroot.createChild(name, hio);
-    }
-    void deleteChild(s8 childID) {
-        m_subroot.deleteChild(childID);
-    }
+
+    s8 createChild(const char* name, JORReflexible* hio) { return m_subroot.createChild(name, hio); }
+    void deleteChild(s8 childID) { m_subroot.deleteChild(childID); }
 
     /* 0x0 */ mDoHIO_subRoot_c m_subroot;
 };

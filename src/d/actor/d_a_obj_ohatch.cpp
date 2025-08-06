@@ -16,33 +16,26 @@ namespace {
 static const char l_arcname[] = "Ohatch";
 }
 
+// clang-format off
+HIO_GENERATE_CLASS(daObjOhatch_HIO_c, JORReflexible, l_HIO,
+    HIO_ARG(s8, mNo, -1)
+    HIO_ARG(f32, m08, -4096.0f)
+    HIO_ARG(f32, m0C, -16384.0f)
+    HIO_ARG(f32, m10, 0.0f)
+    HIO_ARG(f32, m14, -25.0f)
+    HIO_ARG(f32, m18, 190.0f)
+    HIO_ARG(f32, m1C, 1.0f)
+    HIO_ARG(f32, m20, 8192.0f)
+    HIO_ARG(f32, m24, 131072.0f)
+    HIO_ARG(f32, m28, 6.0f)
+    HIO_ARG(f32, m2C, -64.0f)
+    HIO_ARG(f32, m30, 1024.0f)
+    HIO_ARG(f32, m34, 8192.0f)
+    HIO_ARG(u8, m38, 0)
+);
+// clang-format on
+
 #if VERSION == VERSION_DEMO
-class daObjOhatch_HIO_c : public JORReflexible {
-public:
-    daObjOhatch_HIO_c();
-    virtual ~daObjOhatch_HIO_c() {}
-
-    void genMessage(JORMContext*);
-
-public:
-    /* 0x04 */ s8 mNo;
-    /* 0x08 */ f32 m08;
-    /* 0x0C */ f32 m0C;
-    /* 0x10 */ f32 m10;
-    /* 0x14 */ f32 m14;
-    /* 0x18 */ f32 m18;
-    /* 0x1C */ f32 m1C;
-    /* 0x20 */ f32 m20;
-    /* 0x24 */ f32 m24;
-    /* 0x28 */ f32 m28;
-    /* 0x2C */ f32 m2C;
-    /* 0x30 */ f32 m30;
-    /* 0x34 */ f32 m34;
-    /* 0x38 */ u8 m38;
-}; // size = 0x40
-
-static daObjOhatch_HIO_c l_HIO;
-
 daObjOhatch_HIO_c::daObjOhatch_HIO_c() {
     mNo = -1;
     m08 = -4096.0f;
@@ -59,22 +52,6 @@ daObjOhatch_HIO_c::daObjOhatch_HIO_c() {
     m34 = 8192.0f;
     m38 = 0;
 }
-#else
-namespace L_HIO {
-static const f32 m08 = -4096.0f;
-static const f32 m0C = -16384.0f;
-static const f32 m10 = 0.0f;
-static const f32 m14 = -25.0f;
-static const f32 m18 = 190.0f;
-static const f32 m1C = 1.0f;
-static const f32 m20 = 8192.0f;
-static const f32 m24 = 131072.0f;
-static const f32 m28 = 6.0f;
-static const f32 m2C = -64.0f;
-static const f32 m30 = 1024.0f;
-static const f32 m34 = 8192.0f;
-static const u8 m38 = 0;
-} // namespace L_HIO
 #endif
 
 /* 00000078-0000018C       .text set_mtx__13daObjOhatch_cFv */
